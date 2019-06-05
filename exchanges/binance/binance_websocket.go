@@ -147,7 +147,7 @@ func (b *Binance) WsHandleData() {
 					continue
 				}
 
-				var wsTicker wshandler.TickerData
+				var wsTicker SimpleTicker
 
 				wsTicker.Timestamp = time.Unix(t.EventTime/1000, 0)
 				wsTicker.Pair = currency.NewPairFromString(t.Symbol)
@@ -158,6 +158,10 @@ func (b *Binance) WsHandleData() {
 				wsTicker.OpenPrice, _ = strconv.ParseFloat(t.OpenPrice, 64)
 				wsTicker.HighPrice, _ = strconv.ParseFloat(t.HighPrice, 64)
 				wsTicker.LowPrice, _ = strconv.ParseFloat(t.LowPrice, 64)
+				wsTicker.BestAskPrice, _ = strconv.ParseFloat(t.BestAskPrice, 64)
+				wsTicker.BestAskQuantity, _ = strconv.ParseFloat(t.BestAskQuantity, 64)
+				wsTicker.BestBidPrice, _ = strconv.ParseFloat(t.BestBidPrice, 64)
+				wsTicker.BestBidQuantity, _ = strconv.ParseFloat(t.BestBidQuantity, 64)
 
 				b.Websocket.DataHandler <- wsTicker
 

@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 
 	"github.com/thrasher-corp/gocryptotrader/currency"
+	"github.com/thrasher-corp/gocryptotrader/exchanges/websocket/wshandler"
 )
 
 // Response holds basic binance api response data
@@ -190,6 +191,15 @@ type TickerStream struct {
 	FirstTradeID           int64  `json:"F"`
 	LastTradeID            int64  `json:"L"`
 	NumberOfTrades         int64  `json:"n"`
+}
+
+// SimpleTicker holds a subset of ticket data
+type SimpleTicker struct {
+	wshandler.TickerData
+	BestBidPrice    float64
+	BestBidQuantity float64
+	BestAskPrice    float64
+	BestAskQuantity float64
 }
 
 // HistoricalTrade holds recent trade data
